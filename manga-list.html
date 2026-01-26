@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品一覧 - AniListo</title>
+    <title>漫画一覧 - AniListo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
             top: 20px;
         }
 
-        .anime-card img {
+        .manga-card img {
             height: 280px;
             object-fit: cover;
         }
@@ -44,7 +44,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
-                <i class="bi bi-film"></i> AniListo
+                <i class="bi bi-book"></i> Manga De Gos
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -55,22 +55,22 @@
                         <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">作品一覧</a>
+                        <a class="nav-link active" href="#">漫画一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-ranking.html">ランキング</a>
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-mylist.html">マイリスト</a>
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-community.html">コミュニティ</a>
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-lg-none" href="anime-login.html">ログイン</a>
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
                     </li>
                 </ul>
-                <a href="anime-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
                     <i class="bi bi-person-circle"></i> ログイン</a>
             </div>
         </div>
@@ -79,12 +79,12 @@
     <!-- ページヘッダー -->
     <div class="page-heading">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">アニメ作品一覧</h1>
-            <p class="lead">10,000以上の作品からお気に入りを見つけよう</p>
+            <h1 class="display-4 fw-bold mb-3">漫画一覧</h1>
+            <p class="lead">10,000以上の漫画からお気に入りを見つけよう</p>
             <div class="row mt-4">
                 <div class="col-md-8">
                     <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="作品名、キャラクター名で検索...">
+                        <input type="text" class="form-control" placeholder="漫画名、キャラクター名で検索...">
                         <button class="btn btn-light" type="button">
                             <i class="bi bi-search"></i> 検索
                         </button>
@@ -250,7 +250,7 @@
             </div>
             </form>
 
-            <!-- 作品一覧 -->
+            <!-- 漫画一覧 -->
             <div class="col-lg-9 mt-5 mt-lg-0">
                 <!-- ツールバー -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -271,10 +271,10 @@
                     </div>
                 </div>
 
-                <!-- 作品カード -->
+                <!-- 漫画カード -->
                 <div class="row g-4 mb-4" id="contentDisplay">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card position-relative">
+                        <div class="card manga-card position-relative">
                             <img src="images/異世界の勇者 ～運命の旅路～.webp" class="card-img-top" alt="異世界の勇者">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -284,7 +284,7 @@
                                 <h5 class="card-title fw-bold card-title-nowrap">異世界の勇者 ～運命の旅路～</h5>
                                 <p class="card-text text-muted small text-clamp-3">
                                     異世界に勇者として召喚された高校生・佐藤翔太が、仲間との絆を力に魔王軍や陰謀へ挑む。成長と感動が交錯する、胸躍る王道ファンタジー冒険譚。</p>
-                                <a href="anime-detail.html" class="stretched-link"></a>
+                                <a href="manga-detail.html" class="stretched-link"></a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="rating-stars small">
                                         <i class="bi bi-star-fill"></i>
@@ -301,7 +301,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/桜色の約束.webp" class="card-img-top" alt="桜色の約束">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -327,7 +327,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/量子戦士クロノス.webp" class="card-img-top" alt="量子戦士">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -353,7 +353,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/魔法学園の日常.webp" class="card-img-top" alt="魔法学園">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -379,7 +379,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/竜騎士の伝説.webp" class="card-img-top" alt="竜騎士">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -405,7 +405,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/都市伝説探偵.webp" class="card-img-top" alt="都市伝説">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -431,7 +431,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/近未来探偵ネオ.webp" class="card-img-top" alt="未来探偵">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -457,7 +457,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/音楽少女のメロディ.webp" class="card-img-top" alt="音楽少女">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -485,7 +485,7 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                        <div class="card anime-card">
+                        <div class="card manga-card">
                             <img src="images/料理バトル王.webp" class="card-img-top" alt="料理バトル">
                             <div class="card-body">
                                 <div class="d-flex gap-2 mb-2">
@@ -546,14 +546,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-film"></i> AniListo</h5>
-                    <p class="text-light">あなたの好きなアニメを見つけて、共有しよう。</p>
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> AniListo</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
                         <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>

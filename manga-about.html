@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>異世界の勇者 ～運命の旅路～ - mangaHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="icon" href="favicon.png">
+    <style>
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        .rating-large {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .character-card {
+            transition: transform 0.3s ease;
+
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .character-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #4c1d95 0%, #312e81 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .action-btn {
+            transition: transform 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+            object-position: 50% 15%;
+            border-radius: 10px;
+        }
+
+        .float-link {
+            display: inline-block;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .float-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* モーダルを画面下部に固定するレイアウト変更 */
+        .modal-dialog-bottom {
+            display: flex;
+            align-items: flex-end;
+            /* 下に寄せる */
+            min-height: 100%;
+            margin: 0 !important;
+            /* 余白をなくして横幅いっぱいにする */
+            max-width: none;
+        }
+
+        .modal-content.rounded-top-4 {
+            border-radius: 20px 20px 0 0 !important;
+            /* 上側だけ角丸に */
+        }
+
+        /* SNSボタンの共通デザイン */
+        .btn-share {
+            color: white !important;
+            border-radius: 50px;
+            padding: 12px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .btn-share i,
+        .btn-share span:first-child {
+            position: absolute;
+            left: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* 各SNSのブランドカラー */
+        .btn-twitter {
+            background-color: #1DA1F2;
+        }
+
+        .btn-facebook {
+            background-color: #1877F2;
+        }
+
+        .btn-line {
+            background-color: #00C300;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .btn-hatena {
+            background-color: #00A4DE;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .faq-border {
+            width: 30px;
+        }
+
+        .text-teal {
+            color: #2bb3b1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-book"></i> Manga De Go
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
+                    </li>
+                </ul>
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                    <i class="bi bi-person-circle"></i> ログイン</a>
+            </div>
+        </div>
+    </nav>
+    <!-- ページヘッダー -->
+    <div class="page-heading">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-book"></i></i> Manga De Go について
+            </h1>
+            <p class="lead">Manga De Goの詳細について知って、使いこなそう！</p>
+        </div>
+    </div>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 mt-3">
+                        <!-- card-img-top 角丸がカードと自然とつながる -->
+                        <img src="スマートフォン.png" alt="" class="card-img-top">
+                        <!-- flex-column 縦方向に並べる -->
+                        <div class="card-body d-flex flex-column pb-2">
+                            <h4 class="fw-bold mt-auto">一瞬でスキャン</h4>
+                            <!-- text-muted 補足説明用テキスト薄いグレー -->
+                            <p class="text-muted">スマートフォンのカメラでバーコードを読み取るだけで、作品情報や最新刊の情報をすぐに表示します。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 mt-3">
+                        <img src="ランキング.png" alt="" class="card-img-top">
+                        <div class="card-body d-flex flex-column pb-2">
+                            <h4 class="fw-bold mt-auto">今期の注目を逃さない</h4>
+                            <p class="text-muted">トレンドに基づいたおすすめ作品をピックアップ。スライド形式で直感的に探すことができます。</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 mt-3">
+                        <img src="SNS.png" alt="" class="card-img-top">
+                        <div class="card-body d-flex flex-column pb-2">
+                            <h4 class="fw-bold mt-auto">ファン同士で共有</h4>
+                            <p class="text-muted">お気に入りの一冊をSNSでシェアしたり、レビューを投稿してコミュニティを盛り上げましょう。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- margin->上下 -->
+                <hr class="my-5">
+
+                <section class="mb-5 pb-5">
+                    <h2 class="text-center mb-3">FAQ</h2>
+                    <!-- faq-border自作クラス -->
+                    <!-- opacity-100もともとhr線は薄いので黒くしたかった -->
+                    <hr class="faq-border mx-auto border-dark opacity-100">
+                    <!-- accordion機能 折り畳み -->
+                    <!-- m-auto margin 0 auto -->
+                    <div class="accordion w-75 m-auto" id="aboutFaq">
+                        <!-- アコーディオン一つをまとめる箱 -->
+                        <div class="accordion-item">
+                            <!-- accordion-header ボタンを包む -->
+                            <h2 class="accordion-header">
+                                <!-- accordion-button 押すと閉会するボタン -->
+                                <!-- align-items-start 上の文章に合わせる -->
+                                <button class="accordion-button d-flex align-items-start bg-light" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    <!-- text-teal 自作クラス -->
+                                    <!-- lh-1 縦のずれを直す -->
+                                    <div class="fw-bold text-teal fs-4 lh-1" style="width: 32px;">Q</div>
+                                    <!-- lh-base 縦を合わせる -->
+                                    <div class="border-start ps-3 text-teal lh-base">カメラが起動しないときにはどうすればいいですか</div>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#aboutFaq">
+                                <div class="accordion-body d-flex">
+                                    <div class="fw-bold text-teal fs-4" style="width: 32px;">A</div>
+                                    <div class="border-start ps-3 text-dark">
+                                        ブラウザのカメラ設定が「許可」になっているか確認してください。iPhoneの場合は設定アプリのSafariからカメラへのアクセスを許可する必要があります。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button d-flex align-items-start bg-light" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    <div class="fw-bold text-teal flex-shrink-0 fs-4 lh-1" style="width: 32px;">Q</div>
+                                    <div class="border-start ps-3 text-teal lh-base">全ての漫画を検索できますか？</div>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#aboutFaq">
+                                <div class="accordion-body d-flex">
+                                    <div class="fw-bold text-teal flex-shrink-0 fs-4" style="width: 32px;">A</div>
+                                    <div class="border-start ps-3 text-dark">
+                                        日本国内で発行されたISBN（13桁のバーコード）が付いている書籍であれば、基本的に全ての漫画・アニメ関連本が検索対象となります。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+    </main>
+
+
+    <!-- フッター -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> mangaHub</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サイト情報</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サポート</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">ヘルプ</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">お問い合わせ</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold mb-3">フォローする</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-youtube fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-discord fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-light">
+            <p class="text-center text-light mb-0">&copy; 2025 mangaHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+</body>
+
+</html>

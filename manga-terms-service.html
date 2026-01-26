@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>異世界の勇者 ～運命の旅路～ - mangaHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="base.css">
+    <link rel="icon" href="favicon.png">
+    <style>
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        .rating-large {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .character-card {
+            transition: transform 0.3s ease;
+
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .character-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #4c1d95 0%, #312e81 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .action-btn {
+            transition: transform 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+            object-position: 50% 15%;
+            border-radius: 10px;
+        }
+
+        .float-link {
+            display: inline-block;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .float-link:hover {
+            transform: translateY(-2px);
+        }
+
+        /* モーダルを画面下部に固定するレイアウト変更 */
+        .modal-dialog-bottom {
+            display: flex;
+            align-items: flex-end;
+            /* 下に寄せる */
+            min-height: 100%;
+            margin: 0 !important;
+            /* 余白をなくして横幅いっぱいにする */
+            max-width: none;
+        }
+
+        .modal-content.rounded-top-4 {
+            border-radius: 20px 20px 0 0 !important;
+            /* 上側だけ角丸に */
+        }
+
+        /* SNSボタンの共通デザイン */
+        .btn-share {
+            color: white !important;
+            border-radius: 50px;
+            padding: 12px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .btn-share i,
+        .btn-share span:first-child {
+            position: absolute;
+            left: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* 各SNSのブランドカラー */
+        .btn-twitter {
+            background-color: #1DA1F2;
+        }
+
+        .btn-facebook {
+            background-color: #1877F2;
+        }
+
+        .btn-line {
+            background-color: #00C300;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .btn-hatena {
+            background-color: #00A4DE;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .faq-border {
+            width: 30px;
+        }
+
+        .text-teal {
+            color: #2bb3b1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-book"></i> Manga De Go
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
+                    </li>
+                </ul>
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                    <i class="bi bi-person-circle"></i> ログイン</a>
+            </div>
+        </div>
+    </nav>
+    <!-- ページヘッダー -->
+    <div class="page-heading">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-book"></i></i> 利用規約
+            </h1>
+            <p class="lead">Manga De Goの利用規約について知って、使いこなそう！</p>
+        </div>
+    </div>
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <!-- タイトル -->
+                <h1 class="fw-bold text-center mb-4">
+                    このサイトを利用するにあたっての利用規約
+                </h1>
+                <p class="text-center text-muted mb-4">
+                    本規約は、本サイトが提供するすべてのサービスに適用されます。
+                </p>
+                <hr class="mb-5">
+                <!-- 1 -->
+                <section class="mb-5">
+                    <h2 class="h5 fw-bold mb-3">1. 本規約について</h2>
+                    <p class="lh-lg text-muted">
+                        本利用規約（以下「本規約」といいます）は、
+                        本サイトが提供する漫画情報閲覧、コミュニティ機能、
+                        ランキング機能等のすべてのサービス（以下「本サービス」）の
+                        利用条件を定めるものです。
+                    </p>
+                    <p class="lh-lg text-muted">
+                        利用者は、本サービスを利用した時点で、
+                        本規約のすべてに同意したものとみなされます。
+                    </p>
+                </section>
+
+                <!-- 2 -->
+                <section class="mb-5">
+                    <h2 class="h5 fw-bold mb-3">2. コミュニティ機能の利用について</h2>
+                    <p class="lh-lg text-muted">
+                        本サイトでは、利用者同士が感想や意見を投稿できる
+                        コミュニティ機能を提供しています。
+                    </p>
+                    <p class="lh-lg text-muted">
+                        投稿内容は、他の利用者が閲覧できる公開情報となるため、
+                        以下の行為を禁止します。
+                    </p>
+
+                    <ul class="lh-lg text-muted">
+                        <li>誹謗中傷、差別的表現、攻撃的な発言</li>
+                        <li>第三者の権利（著作権・プライバシー等）を侵害する投稿</li>
+                        <li>虚偽の情報や誤解を招く内容の投稿</li>
+                        <li>営利目的、宣伝目的のみの投稿</li>
+                    </ul>
+
+                    <p class="lh-lg text-muted">
+                        運営者は、不適切と判断した投稿について、
+                        事前の通知なく削除・非表示とする場合があります。
+                    </p>
+                </section>
+
+                <!-- 3 -->
+                <section class="mb-5">
+                    <h2 class="h5 fw-bold mb-3">3. ランキング・評価機能について</h2>
+                    <p class="lh-lg text-muted">
+                        本サービスでは、閲覧数、投稿数、評価等をもとにした
+                        ランキング機能を提供する場合があります。
+                    </p>
+                    <p class="lh-lg text-muted">
+                        ランキング結果は自動的に算出されるものであり、
+                        その正確性や完全性を保証するものではありません。
+                    </p>
+                    <p class="lh-lg text-muted">
+                        不正な操作（複数アカウントの利用、意図的な操作等）によって
+                        ランキングに影響を与える行為は禁止します。
+                    </p>
+                </section>
+
+                <!-- 4 -->
+                <section class="mb-5">
+                    <h2 class="h5 fw-bold mb-3">4. 免責事項</h2>
+                    <p class="lh-lg text-muted">
+                        本サイトに掲載されている情報について、
+                        運営者はその正確性、完全性、有用性を保証するものではありません。
+                    </p>
+                    <p class="lh-lg text-muted">
+                        本サービスの利用、または利用できなかったことにより
+                        発生したいかなる損害についても、
+                        運営者は一切の責任を負わないものとします。
+                    </p>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- フッター -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> mangaHub</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サイト情報</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <h6 class="fw-bold mb-3">サポート</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">ヘルプ</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">お問い合わせ</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6 class="fw-bold mb-3">フォローする</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-youtube fs-4"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-discord fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-light">
+            <p class="text-center text-light mb-0">&copy; 2025 mangaHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+</body>
+
+</html>

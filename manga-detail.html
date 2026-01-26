@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>異世界の勇者 ～運命の旅路～ - AnimeHub</title>
+    <title>異世界の勇者 ～運命の旅路～ - mangaHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,6 +91,59 @@
         .float-link:hover {
             transform: translateY(-2px);
         }
+
+        /* モーダルを画面下部に固定するレイアウト変更 */
+        .modal-dialog-bottom {
+            display: flex;
+            align-items: flex-end;
+            /* 下に寄せる */
+            min-height: 100%;
+            margin: 0 !important;
+            /* 余白をなくして横幅いっぱいにする */
+            max-width: none;
+        }
+
+        .modal-content.rounded-top-4 {
+            border-radius: 20px 20px 0 0 !important;
+            /* 上側だけ角丸に */
+        }
+
+        /* SNSボタンの共通デザイン */
+        .btn-share {
+            color: white !important;
+            border-radius: 50px;
+            padding: 12px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .btn-share i,
+        .btn-share span:first-child {
+            position: absolute;
+            left: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* 各SNSのブランドカラー */
+        .btn-twitter {
+            background-color: #1DA1F2;
+        }
+
+        .btn-facebook {
+            background-color: #1877F2;
+        }
+
+        .btn-line {
+            background-color: #00C300;
+        }
+
+        .btn-instagram {
+            background-color: #e24115;
+        }
+
+        .btn-hatena {
+            background-color: #00A4DE;
+        }
     </style>
 </head>
 
@@ -99,7 +152,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
-                <i class="bi bi-film"></i> AnimeHub
+                <i class="bi bi-book"></i> mangaHub
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -110,22 +163,22 @@
                         <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-list.html">作品一覧</a>
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-ranking.html">ランキング</a>
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-mylist.html">マイリスト</a>
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-community.html">コミュニティ</a>
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-lg-none" href="anime-login.html">ログイン</a>
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
                     </li>
                 </ul>
-                <a href="anime-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
                     <i class="bi bi-person-circle"></i> ログイン</a>
             </div>
         </div>
@@ -136,22 +189,22 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">ホーム</a></li>
-                <li class="breadcrumb-item"><a href="anime-list.html">作品一覧</a></li>
+                <li class="breadcrumb-item"><a href="manga-list.html">漫画一覧</a></li>
                 <li class="breadcrumb-item active" aria-current="page">異世界の勇者 ～運命の旅路～</li>
             </ol>
         </nav>
 
-        <!-- 作品メイン情報 -->
+        <!-- 漫画メイン情報 -->
         <div class="row mb-5">
             <div class="col-lg-8">
                 <!-- 画像カルーセル -->
-                <div id="animeCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                <div id="mangaCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#animeCarousel" data-bs-slide-to="0"
+                        <button type="button" data-bs-target="#mangaCarousel" data-bs-slide-to="0"
                             class="active"></button>
-                        <button type="button" data-bs-target="#animeCarousel" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#animeCarousel" data-bs-slide-to="2"></button>
-                        <button type="button" data-bs-target="#animeCarousel" data-bs-slide-to="3"></button>
+                        <button type="button" data-bs-target="#mangaCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#mangaCarousel" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#mangaCarousel" data-bs-slide-to="3"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -179,12 +232,12 @@
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#animeCarousel"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#mangaCarousel"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">前へ</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#animeCarousel"
+                    <button class="carousel-control-next" type="button" data-bs-target="#mangaCarousel"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">次へ</span>
@@ -219,8 +272,8 @@
                     </div>
                 </div>
 
-                <!-- 作品情報アコーディオン -->
-                <div class="accordion mb-4" id="animeInfoAccordion">
+                <!-- 漫画情報アコーディオン -->
+                <div class="accordion mb-4" id="mangaInfoAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -229,7 +282,7 @@
                             </button>
                         </h2>
                         <div id="staffInfo" class="accordion-collapse collapse show"
-                            data-bs-parent="#animeInfoAccordion">
+                            data-bs-parent="#mangaInfoAccordion">
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -248,7 +301,7 @@
                                         <strong>音楽:</strong> 高橋健太
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <strong>アニメーション制作:</strong> A-1 Pictures
+                                        <strong>漫画ーション制作:</strong> A-1 Pictures
                                     </div>
                                 </div>
                             </div>
@@ -263,7 +316,7 @@
                             </button>
                         </h2>
                         <div id="broadcastInfo" class="accordion-collapse collapse"
-                            data-bs-parent="#animeInfoAccordion">
+                            data-bs-parent="#mangaInfoAccordion">
                             <div class="accordion-body">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
@@ -279,7 +332,7 @@
                                         <strong>放送日時:</strong> 毎週土曜 24:00〜
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <strong>配信:</strong> Amazon Prime Video、Netflix、U-NEXT、dアニメストア
+                                        <strong>配信:</strong> Amazon Prime Video、Netflix、U-NEXT、d漫画ストア
                                     </div>
                                 </div>
                             </div>
@@ -293,7 +346,7 @@
                                 <i class="bi bi-music-note-beamed me-2"></i> 主題歌・音楽
                             </button>
                         </h2>
-                        <div id="musicInfo" class="accordion-collapse collapse" data-bs-parent="#animeInfoAccordion">
+                        <div id="musicInfo" class="accordion-collapse collapse" data-bs-parent="#mangaInfoAccordion">
                             <div class="accordion-body">
                                 <div class="mb-3">
                                     <strong>オープニングテーマ:</strong><br>
@@ -326,7 +379,7 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-half"></i>
                         </div>
-                        <p class="mb-0"><a href="anime-review.html"
+                        <p class="mb-0"><a href="manga-review.html"
                                 class="link-light link-underline link-underline-opacity-0 link-underline-opacity-100-hover float-link">1,234件のレビュー</a>
                         </p>
                     </div>
@@ -340,7 +393,8 @@
                     <button class="btn btn-outline-primary btn-lg action-btn">
                         <i class="bi bi-pencil-square"></i> レビューを書く
                     </button>
-                    <button class="btn btn-outline-secondary btn-lg action-btn">
+                    <button class="btn btn-outline-secondary btn-lg action-btn" data-bs-toggle="modal"
+                        data-bs-target="#shareModal">
                         <i class="bi bi-share"></i> シェアする
                     </button>
                 </div>
@@ -351,7 +405,7 @@
                         <h5 class="card-title fw-bold mb-3"><i class="bi bi-bar-chart-fill"></i> 統計情報</h5>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-1">
-                                <span>視聴中</span>
+                                <span>読者中</span>
                                 <strong>8,234人</strong>
                             </div>
                             <div class="progress" style="height: 10px;">
@@ -360,7 +414,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-1">
-                                <span>視聴済み</span>
+                                <span>読者済み</span>
                                 <strong>2,456人</strong>
                             </div>
                             <div class="progress" style="height: 10px;">
@@ -369,7 +423,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-1">
-                                <span>視聴予定</span>
+                                <span>読者予定</span>
                                 <strong>15,678人</strong>
                             </div>
                             <div class="progress" style="height: 10px;">
@@ -551,14 +605,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-film"></i> AnimeHub</h5>
-                    <p class="text-light">あなたの好きなアニメを見つけて、共有しよう。</p>
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> mangaHub</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
                         <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
@@ -581,12 +635,48 @@
                 </div>
             </div>
             <hr class="border-light">
-            <p class="text-center text-light mb-0">&copy; 2025 AnimeHub. All rights reserved.</p>
+            <p class="text-center text-light mb-0">&copy; 2025 mangaHub. All rights reserved.</p>
         </div>
     </footer>
     <button id="backToTopBtn" class="btn shadow d-flex align-items-center justify-content-center">
         <i class="bi bi-chevron-up"></i>
     </button>
+    <!-- fade →  フェイドのアニメーション aria-hidden="true"→初期状態は非表示-->
+    <div class="modal fade" id="shareModal" aria-hidden="true">
+        <!-- modal-dialogはこの下のコンテンツを表示するモーダルで  -->
+        <div class="modal-dialog modal-dialog-center">
+            <!-- modal-contentはモーダルの中身の表示  -->
+            <div class="modal-content border-0 rounded-4 w-100">
+                <div class="modal-header border-0 justify-content-center position-relative">
+                    <h5 class="modal-title fw-bold" id="shareModalLabel">
+                        <!-- https://icons.getbootstrap.com/ ここからブートストラップのアイコンを取得 -->
+                        <i class="bi bi-share text-primary me-2"></i>SNSで共有
+                    </h5>
+                    <!-- data-bs-dismiss="modal"自動でもーだるを閉じる -->
+                    <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <!-- blockはgapが聞かない  gapだけを使いたいから -->
+                    <div class="d-grid gap-3">
+                        <a href="#" class="btn btn-share btn-twitter d-flex align-items-center justify-content-center">
+                            <i class="bi bi-twitter-x"></i><span>Twitter</span>
+                        </a>
+                        <a href="#" class="btn btn-share btn-facebook d-flex align-items-center justify-content-center">
+                            <i class="bi bi-facebook"></i><span>Facebook</span>
+                        </a>
+                        <a href="#" class="btn btn-share btn-line d-flex align-items-center justify-content-center">
+                            <i class="bi bi-line"></i><span>LINE</span>
+                        </a>
+                        <a href="#"
+                            class="btn btn-share btn-instagram d-flex align-items-center justify-content-center">
+                            <i class="bi bi-instagram"></i><span>Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="common.js"></script>

@@ -24,15 +24,15 @@
             transform: translateY(-5px);
         }
 
-        .anime-table-card {
+        .manga-table-card {
             transition: all 0.2s ease;
         }
 
-        .anime-table-card:hover {
+        .manga-table-card:hover {
             background-color: #f8f9fa;
         }
 
-        .anime-thumbnail {
+        .manga-thumbnail {
             width: 80px;
             height: 120px;
             object-fit: cover;
@@ -93,6 +93,23 @@
                 font-size: 1rem;
             }
         }
+
+        .page-heading {
+            background-color: #f8f9fa;
+            /* 薄いグレーの背景 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .extra-small {
+            font-size: 0.75rem;
+        }
+
+        /* スキャナーのビデオがはみ出さないように */
+        #scanner-viewport canvas,
+        video {
+            width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -101,7 +118,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
-                <i class="bi bi-film"></i> AniListo
+                <i class="bi bi-book"></i> Manga De Gos
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -112,34 +129,85 @@
                         <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-list.html">作品一覧</a>
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-ranking.html">ランキング</a>
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">マイリスト</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-community.html">コミュニティ</a>
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-lg-none" href="anime-login.html">ログイン</a>
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
                     </li>
                 </ul>
-                <a href="anime-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
                     <i class="bi bi-person-circle"></i> ログイン</a>
             </div>
         </div>
     </nav>
 
     <!-- ページヘッダー -->
-    <div class="page-heading">
+    <div class="page-heading py-5">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">
-                <i class="bi bi-star-fill"></i> マイリスト
-            </h1>
-            <p class="lead">あなたの視聴記録と進捗を管理しよう</p>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <i class="bi bi-star-fill text-warning"></i> マイリスト
+                    </h1>
+                    <p class="lead mb-0">あなたの読者記録と進捗を管理しよう</p>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="ms-auto" style="max-width: 500px;">
+                        <label class="form-label fw-bold small">ISBN・バーコードでマイリストに本を追加</label>
+                        <!-- input-groupは横並びでd-flexではできない自動的にやってくれる高さの調整など -->
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="isbn-input" placeholder="ISBNコードを入力"
+                                maxlength="13">
+                            <button class="btn btn-dark" type="button" id="searchBtn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <button class="btn btn-primary" type="button" onclick="startScanner()">
+                                <i class="bi bi-camera"></i> スキャン
+                            </button>
+                        </div>
+
+                        <div id="search-result-section" class="mt-2 p-2 border rounded bg-white shadow-sm d-none">
+                            <div class="d-flex align-items-center">
+                                <img src="" id="result-cover" class="rounded me-3"
+                                    style="width: 50px; height: 75px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <div id="result-title" class="fw-bold small text-dark">作品名</div>
+                                    <div id="result-author" class="text-muted extra-small" style="font-size: 0.75rem;">
+                                        著者名</div>
+                                    <span id="result-publisher" class="d-none"></span>
+                                </div>
+                                <div class="d-flex flex-column align-items-end">
+                                    <button type="button" class="btn-close mb-2" onclick="clearSearchResult()"></button>
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#addModal" id="btn-next-step">マイリストに追加</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <small class="text-danger d-none" id="isbnError">書籍が見つかりませんでした</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="scannermodal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0 overflow-hidden">
+                    <div id="scanner-viewport" style="width:100%; height:300px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -151,7 +219,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-play-circle-fill text-primary display-4 mb-3"></i>
                         <h3 class="fw-bold mb-1">12</h3>
-                        <p class="text-muted mb-0">視聴中</p>
+                        <p class="text-muted mb-0">読者中</p>
                     </div>
                 </div>
             </div>
@@ -160,7 +228,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-check-circle-fill text-success display-4 mb-3"></i>
                         <h3 class="fw-bold mb-1">45</h3>
-                        <p class="text-muted mb-0">視聴済み</p>
+                        <p class="text-muted mb-0">読者済み</p>
                     </div>
                 </div>
             </div>
@@ -169,7 +237,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-clock-fill text-warning display-4 mb-3"></i>
                         <h3 class="fw-bold mb-1">23</h3>
-                        <p class="text-muted mb-0">視聴予定</p>
+                        <p class="text-muted mb-0">読者予定</p>
                     </div>
                 </div>
             </div>
@@ -178,7 +246,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-x-circle-fill text-danger display-4 mb-3"></i>
                         <h3 class="fw-bold mb-1">8</h3>
-                        <p class="text-muted mb-0">視聴中断</p>
+                        <p class="text-muted mb-0">読者中断</p>
                     </div>
                 </div>
             </div>
@@ -190,15 +258,15 @@
                 <button class="nav-link active" id="watching-tab" data-bs-toggle="pill" data-bs-target="#watching"
                     type="button" role="tab">
                     <i class="bi bi-play-circle"></i>
-                    <span class="d-none d-sm-inline">視聴中 (12)</span>
-                    <span class="d-inline d-sm-none">視聴中</span>
+                    <span class="d-none d-sm-inline">読者中 (12)</span>
+                    <span class="d-inline d-sm-none">読者中</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="completed-tab" data-bs-toggle="pill" data-bs-target="#completed"
                     type="button" role="tab">
                     <i class="bi bi-check-circle"></i>
-                    <span class="d-none d-sm-inline">視聴済み (45)</span>
+                    <span class="d-none d-sm-inline">読者済み (45)</span>
                     <span class="d-inline d-sm-none">済</span>
                 </button>
             </li>
@@ -206,7 +274,7 @@
                 <button class="nav-link" id="plantowatch-tab" data-bs-toggle="pill" data-bs-target="#plantowatch"
                     type="button" role="tab">
                     <i class="bi bi-clock"></i>
-                    <span class="d-none d-sm-inline">視聴予定 (23)</span>
+                    <span class="d-none d-sm-inline">読者予定 (23)</span>
                     <span class="d-inline d-sm-none">予定</span>
                 </button>
             </li>
@@ -214,7 +282,7 @@
                 <button class="nav-link" id="dropped-tab" data-bs-toggle="pill" data-bs-target="#dropped" type="button"
                     role="tab">
                     <i class="bi bi-x-circle"></i>
-                    <span class="d-none d-sm-inline">視聴中断 (8)</span>
+                    <span class="d-none d-sm-inline">読者中断 (8)</span>
                     <span class="d-inline d-sm-none">中断</span>
                 </button>
             </li>
@@ -222,29 +290,29 @@
 
         <!-- タブコンテンツ -->
         <div class="tab-content" id="myTabContent">
-            <!-- 視聴中タブ -->
+            <!-- 読者中タブ -->
             <div class="tab-pane fade show active" id="watching" role="tabpanel">
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="bi bi-play-circle-fill"></i> 視聴中の作品</h5>
+                        <h5 class="mb-0"><i class="bi bi-play-circle-fill"></i> 読者中の漫画</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive-md">
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th style="width: 100px;">作品</th>
+                                        <th style="width: 100px;">漫画</th>
                                         <th>タイトル</th>
                                         <th style="width: 170px;">評価</th>
-                                        <th style="width: 180px;">視聴進捗</th>
-                                        <th style="width: 150px;">最終視聴</th>
+                                        <th style="width: 180px;">読者進捗</th>
+                                        <th style="width: 150px;">最終読者</th>
                                         <th style="width: 100px;">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/異世界の勇者 ～運命の旅路～.webp" class="anime-thumbnail" alt="異世界の勇者">
+                                            <img src="images/異世界の勇者 ～運命の旅路～.webp" class="manga-thumbnail" alt="異世界の勇者">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">異世界の勇者 ～運命の旅路～</h6>
@@ -283,9 +351,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/桜色の約束.webp" class="anime-thumbnail" alt="桜色の約束">
+                                            <img src="images/桜色の約束.webp" class="manga-thumbnail" alt="桜色の約束">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">桜色の約束</h6>
@@ -324,9 +392,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/量子戦士クロノス.webp" class="anime-thumbnail" alt="量子戦士">
+                                            <img src="images/量子戦士クロノス.webp" class="manga-thumbnail" alt="量子戦士">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">量子戦士クロノス</h6>
@@ -365,9 +433,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/魔法学園の日常.webp" class="anime-thumbnail" alt="魔法学園">
+                                            <img src="images/魔法学園の日常.webp" class="manga-thumbnail" alt="魔法学園">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">魔法学園の日常</h6>
@@ -412,28 +480,28 @@
                     </div>
                 </div>
             </div>
-            <!-- 視聴済みタブ -->
+            <!-- 読者済みタブ -->
             <div class="tab-pane fade" id="completed" role="tabpanel">
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        <h5 class="mb-0"><i class="bi bi-check-circle-fill"></i> 視聴済みの作品</h5>
+                        <h5 class="mb-0"><i class="bi bi-check-circle-fill"></i> 読者済みの漫画</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive-md">
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th style="width: 100px;">作品</th>
+                                        <th style="width: 100px;">漫画</th>
                                         <th>タイトル</th>
                                         <th style="width: 150px;">あなたの評価</th>
-                                        <th style="width: 150px;">視聴完了日</th>
+                                        <th style="width: 150px;">読者完了日</th>
                                         <th style="width: 100px;">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/竜騎士の伝説.webp" class="anime-thumbnail" alt="竜騎士">
+                                            <img src="images/竜騎士の伝説.webp" class="manga-thumbnail" alt="竜騎士">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">竜騎士の伝説</h6>
@@ -464,9 +532,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/近未来探偵ネオ.webp" class="anime-thumbnail" alt="未来探偵">
+                                            <img src="images/近未来探偵ネオ.webp" class="manga-thumbnail" alt="未来探偵">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">未来探偵ネオ</h6>
@@ -497,9 +565,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/音楽少女のメロディ.webp" class="anime-thumbnail" alt="音楽少女">
+                                            <img src="images/音楽少女のメロディ.webp" class="manga-thumbnail" alt="音楽少女">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">音楽少女のメロディ</h6>
@@ -537,18 +605,18 @@
                 </div>
             </div>
 
-            <!-- 視聴予定タブ -->
+            <!-- 読者予定タブ -->
             <div class="tab-pane fade" id="plantowatch" role="tabpanel">
                 <div class="card mb-4">
                     <div class="card-header bg-warning text-dark">
-                        <h5 class="mb-0"><i class="bi bi-clock-fill"></i> 視聴予定の作品</h5>
+                        <h5 class="mb-0"><i class="bi bi-clock-fill"></i> 読者予定の漫画</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive-md">
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th style="width: 100px;">作品</th>
+                                        <th style="width: 100px;">漫画</th>
                                         <th>タイトル</th>
                                         <th style="width: 150px;">平均評価</th>
                                         <th style="width: 150px;">追加日</th>
@@ -556,9 +624,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/都市伝説探偵.webp" class="anime-thumbnail" alt="都市伝説探偵">
+                                            <img src="images/都市伝説探偵.webp" class="manga-thumbnail" alt="都市伝説探偵">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">都市伝説探偵</h6>
@@ -589,9 +657,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/料理バトル王.webp" class="anime-thumbnail" alt="料理バトル王">
+                                            <img src="images/料理バトル王.webp" class="manga-thumbnail" alt="料理バトル王">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">料理バトル王</h6>
@@ -630,18 +698,18 @@
                 </div>
             </div>
 
-            <!-- 視聴中断タブ -->
+            <!-- 読者中断タブ -->
             <div class="tab-pane fade" id="dropped" role="tabpanel">
                 <div class="card mb-4">
                     <div class="card-header bg-danger text-white">
-                        <h5 class="mb-0"><i class="bi bi-x-circle-fill"></i> 視聴中断した作品</h5>
+                        <h5 class="mb-0"><i class="bi bi-x-circle-fill"></i> 読者中断した漫画</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive-md">
                             <table class="table table-hover mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th style="width: 100px;">作品</th>
+                                        <th style="width: 100px;">漫画</th>
                                         <th>タイトル</th>
                                         <th style="width: 150px;">中断時点</th>
                                         <th style="width: 150px;">中断日</th>
@@ -649,9 +717,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/ロボット大戦記.webp" class="anime-thumbnail" alt="作品1">
+                                            <img src="images/ロボット大戦記.webp" class="manga-thumbnail" alt="漫画1">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">ロボット大戦記</h6>
@@ -675,9 +743,9 @@
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr class="anime-table-card">
+                                    <tr class="manga-table-card">
                                         <td>
-                                            <img src="images/学園コメディ.webp" class="anime-thumbnail" alt="作品2">
+                                            <img src="images/学園コメディ.webp" class="manga-thumbnail" alt="漫画2">
                                         </td>
                                         <td>
                                             <h6 class="mb-1 fw-bold text-clamp-2">学園コメディ!</h6>
@@ -710,28 +778,28 @@
         </div>
 
 
-        <!-- 視聴統計 -->
+        <!-- 読者統計 -->
         <div class="row mb-5">
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header bg-light">
-                        <h5 class="mb-0"><i class="bi bi-graph-up"></i> 視聴統計</h5>
+                        <h5 class="mb-0"><i class="bi bi-graph-up"></i> 読者統計</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
                             <div class="d-flex justify-content-between mb-2">
-                                <span>総視聴作品数</span>
-                                <strong>88作品</strong>
+                                <span>総読者漫画数</span>
+                                <strong>88漫画</strong>
                             </div>
                             <div class="progress" style="height: 25px;">
                                 <div class="progress-bar bg-primary" style="width: 14%">
-                                    <small>視聴中 12</small>
+                                    <small>読者中 12</small>
                                 </div>
                                 <div class="progress-bar bg-success" style="width: 51%">
-                                    <small>視聴済み 45</small>
+                                    <small>読者済み 45</small>
                                 </div>
                                 <div class="progress-bar bg-warning" style="width: 26%">
-                                    <small>視聴予定 23</small>
+                                    <small>読者予定 23</small>
                                 </div>
                                 <div class="progress-bar bg-danger" style="width: 9%">
                                     <small>中断 8</small>
@@ -744,11 +812,11 @@
                         <div class="row text-center">
                             <div class="col-6 mb-3">
                                 <h4 class="text-primary fw-bold">1,280</h4>
-                                <small class="text-muted">総視聴エピソード数</small>
+                                <small class="text-muted">総読者エピソード数</small>
                             </div>
                             <div class="col-6 mb-3">
                                 <h4 class="text-success fw-bold">640</h4>
-                                <small class="text-muted">視聴時間（時間）</small>
+                                <small class="text-muted">読者時間（時間）</small>
                             </div>
                             <div class="col-6">
                                 <h4 class="text-warning fw-bold">4.3</h4>
@@ -772,7 +840,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span><span class="badge bg-primary">ファンタジー</span></span>
-                                <strong>28作品</strong>
+                                <strong>28漫画</strong>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-primary" style="width: 32%">32%</div>
@@ -781,7 +849,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span><span class="badge bg-danger">恋愛</span></span>
-                                <strong>22作品</strong>
+                                <strong>22漫画</strong>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-danger" style="width: 25%">25%</div>
@@ -790,7 +858,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span><span class="badge bg-warning text-dark">アクション</span></span>
-                                <strong>18作品</strong>
+                                <strong>18漫画</strong>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-warning" style="width: 20%">20%</div>
@@ -799,7 +867,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span><span class="badge bg-info">SF</span></span>
-                                <strong>12作品</strong>
+                                <strong>12漫画</strong>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-info" style="width: 14%">14%</div>
@@ -808,7 +876,7 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <span><span class="badge bg-secondary">その他</span></span>
-                                <strong>8作品</strong>
+                                <strong>8漫画</strong>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-secondary" style="width: 9%">9%</div>
@@ -819,20 +887,69 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">読書進捗を追加</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form id="progressForm">
+                    <div class="modal-body">
+
+                        <!-- タイトル -->
+                        <div class="mb-3">
+                            <label class="form-label">タイトル</label>
+                            <input type="text" class="form-control bg-light" id="modal-title" readonly>
+                        </div>
+
+                        <!-- 著者 -->
+                        <div class="mb-3">
+                            <label class="form-label">著者</label>
+                            <input type="text" class="form-control bg-light" id="modal-author" readonly>
+                        </div>
+
+                        <!-- 進捗 -->
+                        <div class="mb-3">
+                            <label class="form-label">何話まで読んだ？</label>
+                            <input type="number" class="form-control bg-light" id="modal-progress" min="0" step="1"
+                                placeholder="例：12">
+                        </div>
+
+                        <!-- 評価 -->
+                        <div class="mb-3">
+                            <label class="form-label">評価（0〜5）</label>
+                            <input type="number" class="form-control bg-light" id="modal-rating" min="0" max="5" step="0.5"
+                                placeholder="例：4.5">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 
     <!-- フッター -->
     <footer class="py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-film"></i> AniListo</h5>
-                    <p class="text-light">あなたの好きなアニメを見つけて、共有しよう。</p>
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> AniListo</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
                         <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
@@ -864,6 +981,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="isbn.js"></script>
 </body>
 
 </html>

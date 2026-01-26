@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コミュニティ - AniListo</title>
+    <title>コミュニティ - Manga De Go</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,6 +57,29 @@
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
         }
+
+        /* ISBNコードを検索したときにでてｋる書影 */
+        /* 画像が大きい場合があるため強制的に大きさを指定して合わせている */
+        /* object-fit: cover; 枠いっぱいにいい感じにする */
+        .isbn-search-img {
+            width: 40px;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        #scanner-viewport video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* QuaggaJSがバーコードを認識している緑色の枠線を描画させるために自動で出している機能を消している */
+        #scanner-viewport canvas.drawingBuffer {
+        display: none;
+    }
+
+        #scanner-modal {
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -65,7 +88,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
-                <i class="bi bi-film"></i> AniListo
+                <i class="bi bi-book"></i> Manga De Go
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -76,22 +99,22 @@
                         <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-list.html">作品一覧</a>
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-ranking.html">ランキング</a>
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-mylist.html">マイリスト</a>
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">コミュニティ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-lg-none" href="anime-login.html">ログイン</a>
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
                     </li>
                 </ul>
-                <a href="anime-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
                     <i class="bi bi-person-circle"></i> ログイン</a>
             </div>
         </div>
@@ -116,7 +139,7 @@
             <h1 class="display-4 fw-bold mb-3">
                 <i class="bi bi-chat-dots-fill"></i> コミュニティ
             </h1>
-            <p class="lead">アニメ好きと繋がろう!感想や考察をシェアしよう</p>
+            <p class="lead">漫画好きと繋がろう!感想や考察をシェアしよう</p>
         </div>
     </div>
 
@@ -133,20 +156,48 @@
                         <!-- アラート表示領域（最初は非表示） -->
                         <div id="formAlert" class="alert alert-danger d-none" role="alert"></div>
                         <form id="postForm">
-                            <!-- 作品選択 -->
+
+                            <!-- ISBN検索 -->
+                            <!-- 他のタイトルや選択に合わせてclass mb-3でボトムに幅を持たす -->
                             <div class="mb-3">
-                                <label for="animeSelect" class="form-label fw-bold">作品を選択 <span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" id="animeSelect" required>
-                                    <option value="" disabled selected hidden>作品を選択してください</option>
-                                    <option value="1">異世界の勇者 ～運命の旅路～</option>
-                                    <option value="2">桜色の約束</option>
-                                    <option value="3">量子戦士クロノス</option>
-                                    <option value="4">魔法学園の日常</option>
-                                    <option value="5">竜騎士の伝説</option>
-                                </select>
-                                <small class="text-danger d-none" id="animeError">作品を選択してください</small>
+                                <!-- 余白や文字の太さの指定 forにidと一致させた値を入れることでlabelをタップすると下に選択される -->
+                                <label for="isbn-input" class="form-label fw-bold">ISBN・バーコードで検索</label>
+                                <!-- ボタンとテキストを横並びにしている 角丸とかも自動出そろう -->
+                                <div class="input-group">
+                                    <!-- 横幅100% レスポンシブ対応できる isbnコードは13桁まで-->
+                                    <input type="text" class="form-control" id="isbn-input"
+                                        placeholder="例: 9784844338727" maxlength="13">
+                                    <!-- bi-search これは虫眼鏡 -->
+                                    <button class="btn btn-outline-dark" type="button" id="searchBtn">
+                                        <i class="bi bi-search"></i> 検索
+                                    </button>
+                                    <!-- bi-camera これはバーコード / QR 読み取り -->
+                                    <button class="btn btn-outline-primary" type="button" onclick="startScanner()">
+                                        <i class="bi bi-camera"></i> スキャン
+                                    </button>
+                                </div>
+                                <div class="form-text">ISBNコードを入力するか、カメラでバーコードを読み取ってください</div>
+                                <!-- d-noneで最初は見えなくする -->
+                                <div id="search-result-section" class="mt-2 p-2 border rounded bg-light d-none">
+                                    <!-- 横並び 縦の中央指定 -->
+                                    <div class="d-flex align-items-center">
+                                        <!-- isbn-search-img 自作クラス -->
+                                        <img src="" id="result-cover" class="rounded me-3 isbn-search-img">
+                                        <div>
+                                            <div id="result-title" class="fw-bold small">作品名</div>
+                                            <!-- text-muted 文字を薄くしている 重要度が他より低いときに使う -->
+                                            <div id="result-author" class="text-muted small">著者名
+                                            </div>
+                                        </div>
+                                        <!-- btn-close svg画像 ✖ボタン ms-auto flexで右端に寄せている-->
+                                        <button type="button" class="btn-close ms-auto small"
+                                            onclick="clearSearchResult()"></button>
+                                    </div>
+                                </div>
+                                <!-- 書籍が見つからない場合赤で表示する -->
+                                <small class="text-danger d-none" id="isbnError">書籍が見つかりませんでした</small>
                             </div>
+
 
                             <!-- 投稿タイトル -->
                             <div class="mb-3">
@@ -220,98 +271,7 @@
                                 </button>
                             </div>
                         </form>
-                        <!-- <form id="postForm">
 
-                            <div class="mb-3">
-                                <label for="animeSelect" class="form-label fw-bold">
-                                    作品を選択 <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-select" id="animeSelect" required>
-                                    <option value="" disabled selected hidden>作品を選択してください</option>
-                                    <option value="1">異世界の勇者 ～運命の旅路～</option>
-                                    <option value="2">桜色の約束</option>
-                                    <option value="3">量子戦士クロノス</option>
-                                    <option value="4">魔法学園の日常</option>
-                                    <option value="5">竜騎士の伝説</option>
-                                </select>
-                                <div class="form-text">投稿する作品を選択してください</div>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="postTitle" class="form-label fw-bold">
-                                    タイトル <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" class="form-control" id="postTitle" placeholder="例: 第8話の展開が神すぎた!"
-                                    required>
-                                <div class="form-text">30文字以内で入力してください</div>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="categorySelect" class="form-label fw-bold">
-                                    カテゴリ <span class="text-danger">*</span>
-                                </label>
-                                <select class="form-select" id="categorySelect" required>
-                                    <option value="">カテゴリを選択</option>
-                                    <option value="impression">感想</option>
-                                    <option value="theory">考察</option>
-                                    <option value="question">質問</option>
-                                    <option value="discussion">議論</option>
-                                    <option value="fanart">ファンアート</option>
-                                </select>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="postContent" class="form-label fw-bold">
-                                    本文 <span class="text-danger">*</span>
-                                </label>
-                                <textarea class="form-control" id="postContent" rows="6"
-                                    placeholder="あなたの感想や考察を書いてください..." required></textarea>
-                                <div class="form-text">500文字以内で入力してください</div>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="spoilerCheck">
-                                    <label class="form-check-label" for="spoilerCheck">
-                                        <span class="badge bg-danger">ネタバレ注意</span> この投稿にはネタバレが含まれます
-                                    </label>
-                                </div>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="tagInput" class="form-label fw-bold">タグ（任意）</label>
-                                <input type="text" class="form-control" id="tagInput"
-                                    placeholder="例: 感動, バトルシーン, キャラクター">
-                                <div class="form-text">カンマ区切りで複数のタグを入力できます</div>
-                            </div>
-
-
-                            <div class="alert alert-info" role="alert">
-                                <i class="bi bi-info-circle-fill"></i>
-                                投稿する前に、<a href="#guidelines" class="alert-link">コミュニティガイドライン</a>をご確認ください。
-                            </div>
-
-
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-send-fill"></i>
-                                    <span class="d-inline d-sm-none">投稿</span>
-                                    <span class="d-none d-sm-inline">投稿する</span>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#previewModal" id="previewBtn">
-                                    <i class="bi bi-eye"></i> プレビュー
-                                </button>
-                                <button type="reset" class="btn btn-outline-danger">
-                                    <i class="bi bi-x-circle"></i> クリア
-                                </button>
-                            </div>
-                        </form> -->
                     </div>
                 </div>
 
@@ -321,8 +281,8 @@
                         <div class="row g-2">
                             <div class="col-md-4">
                                 <select class="form-select form-select-sm">
-                                    <option>すべての作品</option>
-                                    <option>視聴中の作品のみ</option>
+                                    <option>すべての漫画</option>
+                                    <option>読者中の漫画のみ</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -356,7 +316,7 @@
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <h6 class="mb-1 fw-bold">アニメ大好きさん</h6>
+                                        <h6 class="mb-1 fw-bold">漫画大好きさん</h6>
                                         <small class="text-muted">
                                             <i class="bi bi-clock"></i> 5分前
                                             <span class="badge bg-primary ms-2">感想</span>
@@ -369,7 +329,7 @@
                             <a href="#" class="text-decoration-none text-dark">第8話の展開が神すぎた!</a>
                         </h5>
                         <p class="text-muted small mb-2">
-                            <i class="bi bi-film"></i> 異世界の勇者 ～運命の旅路～
+                            <i class="bi bi-book"></i> 異世界の勇者 ～運命の旅路～
                         </p>
                         <p class="card-text">
                             今週の第8話、まさかあの展開になるとは思いませんでした!特にラストシーンは鳥肌モノでしたね。来週がもう待ちきれません...
@@ -421,7 +381,7 @@
                             <a href="#" class="text-decoration-none text-dark">魔王の真の目的について【考察】</a>
                         </h5>
                         <p class="text-muted small mb-2">
-                            <i class="bi bi-film"></i> 異世界の勇者 ～運命の旅路～
+                            <i class="bi bi-book"></i> 異世界の勇者 ～運命の旅路～
                         </p>
                         <p class="card-text">
                             これまでの描写から、魔王ゼノンの真の目的は世界征服ではなく、別の何かを求めているのではないでしょうか。第7話での賢者との会話シーンが重要な伏線だと思います...
@@ -459,7 +419,7 @@
                             <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <h6 class="mb-1 fw-bold">アニメ初心者</h6>
+                                        <h6 class="mb-1 fw-bold">漫画初心者</h6>
                                         <small class="text-muted">
                                             <i class="bi bi-clock"></i> 3時間前
                                             <span class="badge bg-success ms-2">質問</span>
@@ -472,10 +432,10 @@
                             <a href="#" class="text-decoration-none text-dark">エリナとルナ、どちらが人気ですか?</a>
                         </h5>
                         <p class="text-muted small mb-2">
-                            <i class="bi bi-film"></i> 異世界の勇者 ～運命の旅路～
+                            <i class="bi bi-book"></i> 異世界の勇者 ～運命の旅路～
                         </p>
                         <p class="card-text">
-                            最近この作品を見始めたのですが、ヒロインが魅力的で選べません!みなさんはエリナとルナ、どちらが好きですか?それぞれの魅力を教えてください。
+                            最近この漫画を見始めたのですが、ヒロインが魅力的で選べません!みなさんはエリナとルナ、どちらが好きですか?それぞれの魅力を教えてください。
                         </p>
                         <div class="d-flex gap-2 mb-3">
                             <span class="badge bg-info">#ヒロイン</span>
@@ -549,7 +509,7 @@
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
                                         <h6 class="mb-1">キャラクター人気投票</h6>
-                                        <small class="text-muted">全作品</small>
+                                        <small class="text-muted">全漫画</small>
                                     </div>
                                     <span class="badge bg-primary">567</span>
                                 </div>
@@ -557,7 +517,7 @@
                             <li class="list-group-item px-0">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <h6 class="mb-1">おすすめの類似作品</h6>
+                                        <h6 class="mb-1">おすすめの類似漫画</h6>
                                         <small class="text-muted">魔法学園の日常</small>
                                     </div>
                                     <span class="badge bg-primary">123</span>
@@ -579,7 +539,7 @@
                                     <img src="https://placehold.co/30x30/6366f1/ffffff?text=U1"
                                         class="user-avatar-small me-2" alt="ユーザー">
                                     <div>
-                                        <h6 class="mb-0 small">アニメ大好きさん</h6>
+                                        <h6 class="mb-0 small">漫画大好きさん</h6>
                                         <small class="text-muted">オンライン</small>
                                     </div>
                                 </div>
@@ -599,7 +559,7 @@
                                     <img src="https://placehold.co/30x30/10b981/ffffff?text=U3"
                                         class="user-avatar-small me-2" alt="ユーザー">
                                     <div>
-                                        <h6 class="mb-0 small">週末アニメ視聴者</h6>
+                                        <h6 class="mb-0 small">週末漫画読者者</h6>
                                         <small class="text-muted">5分前</small>
                                     </div>
                                 </div>
@@ -609,7 +569,7 @@
                                     <img src="https://placehold.co/30x30/8b5cf6/ffffff?text=U4"
                                         class="user-avatar-small me-2" alt="ユーザー">
                                     <div>
-                                        <h6 class="mb-0 small">深夜アニメファン</h6>
+                                        <h6 class="mb-0 small">深夜漫画ファン</h6>
                                         <small class="text-muted">10分前</small>
                                     </div>
                                 </div>
@@ -662,6 +622,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="scannermodal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0 overflow-hidden">
+                    <div id="scanner-viewport" style="width:100%; height:300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
         <!-- プレビューモーダル -->
         <div class="modal fade" id="previewModal" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -675,8 +650,8 @@
                     <div class="modal-body">
 
                         <div class="mb-3 p-3 bg-light rounded">
-                            <div class="fw-bold small text-muted">作品</div>
-                            <div id="previewAnime"></div>
+                            <div class="fw-bold small text-muted">漫画</div>
+                            <div id="previewmanga"></div>
                         </div>
 
                         <div class="mb-3 p-3 bg-light rounded">
@@ -715,14 +690,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-film"></i> AniListo</h5>
-                    <p class="text-light">あなたの好きなアニメを見つけて、共有しよう。</p>
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> AniListo</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
                         <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
@@ -753,125 +728,9 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('postForm');
-            const submitBtn = document.getElementById('submitBtn');
-
-            const animeSelect = document.getElementById('animeSelect');
-            const postTitle = document.getElementById('postTitle');
-            const categorySelect = document.getElementById('categorySelect');
-            const postContent = document.getElementById('postContent');
-
-            function validate() {
-                let valid = true;
-
-                // 作品選択
-                if (!animeSelect.value) {
-                    document.getElementById('animeError').classList.remove('d-none');
-                    valid = false;
-                } else {
-                    document.getElementById('animeError').classList.add('d-none');
-                }
-
-                // タイトル（30文字以内）
-                if (!postTitle.value.trim() || postTitle.value.length > 30) {
-                    document.getElementById('titleError').classList.remove('d-none');
-                    valid = false;
-                } else {
-                    document.getElementById('titleError').classList.add('d-none');
-                }
-
-                // カテゴリ
-                if (!categorySelect.value) {
-                    document.getElementById('categoryError').classList.remove('d-none');
-                    valid = false;
-                } else {
-                    document.getElementById('categoryError').classList.add('d-none');
-                }
-
-                // 本文（500文字以内）
-                if (!postContent.value.trim() || postContent.value.length > 500) {
-                    document.getElementById('contentError').classList.remove('d-none');
-                    valid = false;
-                } else {
-                    document.getElementById('contentError').classList.add('d-none');
-                }
-
-                // ボタン制御
-                submitBtn.disabled = !valid;
-            }
-
-            // 入力イベント監視
-            [animeSelect, postTitle, categorySelect, postContent].forEach(field => {
-                field.addEventListener('input', validate);
-                field.addEventListener('change', validate);
-            });
-
-            // 初期チェック
-            validate();
-
-            // フォーム送信時のトースト表示
-            document.getElementById('postForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-                var toast = new bootstrap.Toast(document.getElementById('successToast'));
-                toast.show();
-                this.reset();
-            });
-
-            // プレビュー生成
-            previewBtn.addEventListener("click", function () {
-                const animeSelect = document.getElementById("animeSelect");
-                document.getElementById("previewAnime").textContent =
-                    animeSelect.options[animeSelect.selectedIndex].text;
-
-                document.getElementById("previewTitle").textContent =
-                    document.getElementById("postTitle").value;
-
-                const categorySelect = document.getElementById("categorySelect");
-                const categoryValue = categorySelect.value;
-                const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
-
-                document.getElementById("previewContent").textContent =
-                    document.getElementById("postContent").value;
-
-                const spoilerCheck = document.getElementById("spoilerCheck").checked;
-                document.getElementById("previewSpoiler").classList.toggle("d-none", !spoilerCheck);
-
-                const rawTags = document.getElementById("tagInput").value;
-                const tagContainer = document.getElementById("previewTags");
-                tagContainer.innerHTML = "";
-                if (rawTags.trim() !== "") {
-                    rawTags.split(",")
-                        .map(tag => tag.trim())
-                        .filter(tag => tag !== "")
-                        .forEach(tag => {
-                            const span = document.createElement("span");
-                            span.className = "badge bg-info me-1";
-                            span.textContent = "#" + tag;
-                            tagContainer.appendChild(span);
-                        });
-                }
-                // カテゴリバッジ
-                const categoryColors = {
-                    impression: "bg-primary",
-                    theory: "bg-warning text-dark",
-                    question: "bg-success",
-                    discussion: "bg-secondary",
-                    fanart: "bg-dark"
-                };
-                const categoryContainer = document.getElementById("previewCategory");
-                categoryContainer.innerHTML = "";
-                if (categoryValue) {
-                    const span = document.createElement("span");
-                    span.className = `badge ${categoryColors[categoryValue]}`;
-                    span.textContent = categoryText;
-                    categoryContainer.appendChild(span);
-                }
-            });
-        });
-    </script>
+    <script type="manga-community.js"></script>
     <script type="text/javascript" src="common.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="isbn.js"></script>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniListo - アニメレビューサイト</title>
+    <title>AniListo - 漫画レビューサイト</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="base.css">
     <link rel="icon" href="favicon.png">
     <style>
-        .anime-card img {
+        .manga-card img {
             width: 100%;
             height: 30vw;
             max-height: 300px;
@@ -46,7 +46,7 @@
         }
 
         @media (max-width: 767.98px) {
-            .anime-card img {
+            .manga-card img {
                 object-position: 50% 40%;
             }
         }
@@ -58,7 +58,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#">
-                <i class="bi bi-film"></i> AniListo
+                <i class="bi bi-book"></i> Manga De Gos
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -69,22 +69,22 @@
                         <a class="nav-link active" href="#">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-list.html">作品一覧</a>
+                        <a class="nav-link" href="manga-list.html">漫画一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-ranking.html">ランキング</a>
+                        <a class="nav-link" href="manga-ranking.html">ランキング</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-mylist.html">マイリスト</a>
+                        <a class="nav-link" href="manga-mylist.html">マイリスト</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="anime-community.html">コミュニティ</a>
+                        <a class="nav-link" href="manga-community.html">コミュニティ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-lg-none" href="anime-login.html">ログイン</a>
+                        <a class="nav-link d-lg-none" href="manga-login.html">ログイン</a>
                     </li>
                 </ul>
-                <a href="anime-login.html" class="btn btn-light ms-3 d-none d-lg-block">
+                <a href="manga-login.html" class="btn btn-light ms-3 d-none d-lg-block">
                     <i class="bi bi-person-circle"></i> ログイン</a>
             </div>
         </div>
@@ -93,12 +93,12 @@
     <!-- ヒーローセクション -->
     <div class="hero-section">
         <div class="container text-center">
-            <h1 class="display-3 fw-bold mb-4">あなたの好きなアニメを見つけよう</h1>
-            <p class="lead mb-4">10,000以上の作品から、お気に入りのアニメを探そう</p>
+            <h1 class="display-3 fw-bold mb-4">あなたの好きな漫画を見つけよう</h1>
+            <p class="lead mb-4">10,000以上の漫画から、お気に入りの漫画を探そう</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="作品名で検索...">
+                        <input type="text" class="form-control" placeholder="漫画名で検索...">
                         <button class="btn btn-light" type="button">
                             <i class="bi bi-search"></i> 検索
                         </button>
@@ -109,85 +109,153 @@
     </div>
 
     <div class="container">
-        <!-- 今期の注目作品 -->
         <section class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">
-                    <i class="bi bi-star-fill text-warning"></i> 今期の注目作品
+                    <i class="bi bi-star-fill text-warning"></i> 今期の注目漫画
                 </h2>
                 <a href="#" class="btn btn-outline-dark">すべて見る <i class="bi bi-arrow-right"></i></a>
             </div>
 
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card anime-card position-relative">
-                        <img src="images/異世界の勇者 ～運命の旅路～.webp" class="card-img-top img-fluid" alt="異世界の勇者">
-                        <div class="card-body">
-                            <span class="badge bg-primary mb-2">ファンタジー</span>
-                            <span class="badge bg-success mb-2">放送中</span>
-                            <h5 class="card-title fw-bold card-title-nowrap">異世界の勇者 ～運命の旅路～</h5>
-                            <p class="card-text text-muted text-clamp-3">異世界に勇者として召喚された高校生・佐藤翔太が、仲間との絆を力に魔王軍や陰謀へ挑む。成長と感動が交錯する、胸躍る王道ファンタジー冒険譚。</p>
-                            <a href="anime-detail.html" class="stretched-link"></a>
-                            <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row justify-content-between align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
-                                <div class="rating-stars mb-2 mb-sm-0 mb-md-2 mb-lg-0">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                    <span class="text-dark ms-1">4.5</span>
+            <!-- idにmangaCarouselを置くことでしたでカルーセルを動かすボタンを認識させるためのid -->
+            <!-- carouselでカルーセルとして認識させている -->
+            <!-- carousel-dark→を黒色にする -->
+            <!-- slide→スライドアニメーションで素っとうごくように -->
+            <!-- data-bs-ride="carousel"は一定時間で次のcarousel-itemになる -->
+            <div id="mangaCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <!-- スライドとして切り替わる中身 -->
+                <div class="carousel-inner">
+                    <!-- carousel-itemは切り替える中身 -->
+                    <div class="carousel-item active">
+                        <!-- rowはcol-md-4を使うための横並び -->
+                        <!-- g-4はgap -->
+                        <!-- px-5はパディング左右 -->
+                        <div class="row g-4 px-5">
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100"> <img src="images/異世界の勇者 ～運命の旅路～.webp"
+                                        class="card-img-top" alt="異世界の勇者">
+                                    <div class="card-body">
+                                        <span class="badge bg-primary mb-2">ファンタジー</span>
+                                        <span class="badge bg-success mb-2">放送中</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">異世界の勇者</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            異世界に勇者として召喚された高校生・佐藤翔太が、仲間との絆を力に魔王軍や陰謀へ挑む。</p>
+                                        <a href="manga-detail.html" class="stretched-link"></a>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.5
+                                            <small class="text-muted ms-2">(1,234)</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                <small class="text-muted">1,234件のレビュー</small>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card anime-card">
-                        <img src="images/桜色の約束.webp" class="card-img-top" alt="青春ストーリー">
-                        <div class="card-body">
-                            <span class="badge bg-danger mb-2">恋愛</span>
-                            <span class="badge bg-success mb-2">放送中</span>
-                            <h5 class="card-title fw-bold card-title-nowrap">桜色の約束</h5>
-                            <p class="card-text text-muted text-clamp-3">高校最後の春、幼馴染との大切な“約束”を胸に揺れる想いと向き合う主人公。夢と現実の狭間で迷いながらも、確かな絆が未来を照らす感動の青春ラブストーリー。</p>
-                            <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row justify-content-between align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
-                                <div class="rating-stars mb-2 mb-sm-0 mb-md-2 mb-lg-0">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                    <span class="text-dark ms-1">4.8</span>
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100">
+                                    <img src="images/桜色の約束.webp" class="card-img-top" alt="桜色の約束">
+                                    <div class="card-body">
+                                        <span class="badge bg-danger mb-2">恋愛</span>
+                                        <span class="badge bg-success mb-2">放送中</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">桜色の約束</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            高校最後の春、幼馴染との大切な“約束”を胸に揺れる想いと向き合う主人公。</p>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.8
+                                            <small class="text-muted ms-2">(2,156)</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                <small class="text-muted">2,156件のレビュー</small>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card anime-card">
-                        <img src="images/量子戦士クロノス.webp" class="card-img-top" alt="SFアクション">
-                        <div class="card-body">
-                            <span class="badge bg-info mb-2">SF</span>
-                            <span class="badge bg-success mb-2">放送中</span>
-                            <h5 class="card-title fw-bold card-title-nowrap">量子戦士クロノス</h5>
-                            <p class="card-text text-muted text-clamp-3">時空のゆがみに巻き込まれた少年が“量子戦士”として覚醒。過去と未来を駆け巡り、崩壊する世界を救うため仲間と共に戦い抜く、スケール壮大なSFアクション。</p>
-                            <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row justify-content-between align-items-start align-items-sm-center align-items-md-start align-items-lg-center">
-                                <div class="rating-stars mb-2 mb-sm-0 mb-md-2 mb-lg-0">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                    <span class="text-dark ms-1">4.2</span>
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100">
+                                    <img src="images/量子戦士クロノス.webp" class="card-img-top" alt="量子戦士クロノス">
+                                    <div class="card-body">
+                                        <span class="badge bg-info mb-2">SF</span>
+                                        <span class="badge bg-success mb-2">放送中</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">量子戦士クロノス</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            時空のゆがみに巻き込まれた少年が“量子戦士”として覚醒。過去と未来を駆け巡る。</p>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.2
+                                            <small class="text-muted ms-2">(987)</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                <small class="text-muted">987件のレビュー</small>
                             </div>
+
                         </div>
                     </div>
+
+                    <div class="carousel-item">
+                        <div class="row g-4 px-5">
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100">
+                                    <img src="images/異世界の勇者 ～運命の旅路～.webp" class="card-img-top" alt="異世界の勇者">
+                                    <div class="card-body">
+                                        <span class="badge bg-secondary mb-2">続編決定</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">異世界の勇者 2</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            大人気シリーズの続編。新たな大陸を舞台に、成長した勇者たちの冒険が再び始まる。</p>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.9
+                                            <small class="text-muted ms-2">(5,000)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100">
+                                    <img src="images/桜色の約束.webp" class="card-img-top" alt="桜色の約束">
+                                    <div class="card-body">
+                                        <span class="badge bg-danger mb-2">恋愛</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">桜色の約束 After</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            卒業後の二人を描いたスピンオフ。社会人としてすれ違う中で試される愛の行方。</p>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.6
+                                            <small class="text-muted ms-2">(1,500)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card manga-card h-100">
+                                    <img src="images/量子戦士クロノス.webp" class="card-img-top" alt="量子戦士クロノス">
+                                    <div class="card-body">
+                                        <span class="badge bg-info mb-2">SF</span>
+                                        <h5 class="card-title fw-bold card-title-nowrap">クロノス：ゼロ</h5>
+                                        <p class="card-text text-muted text-clamp-3">
+                                            全ての始まりを描く前日譚。最初の量子戦士がいかにして誕生したのか、謎が明かされる。</p>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i> 4.3
+                                            <small class="text-muted ms-2">(800)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
+                <!-- ここのdata-bs-target="#mangaCarousel"これでカルーセルを動かすボタン -->
+                <!-- carousel-control-prevは前のスライドに戻るボタン -->
+                <!-- data-bs-slide="prev"一つ前に -->
+                <button class="carousel-control-prev pe-3" type="button" data-bs-target="#mangaCarousel" data-bs-slide="prev"
+                    style="width: 5%;">
+                    <!-- carousel-control-prev-iconは<これ -->
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <!-- ここのdata-bs-target="#mangaCarousel"これでカルーセルを動かすボタン -->
+                <!-- carousel-control-prevは次のスライドにいくボタン -->
+                <!-- data-bs-slide="next"一つ次に -->
+                <button class="carousel-control-next ps-3" type="button" data-bs-target="#mangaCarousel" data-bs-slide="next"
+                    style="width: 5%;">
+                    <!-- carousel-control-prev-iconは>これ -->
+                    <span class="carousel-control-next-icon"></span>
+                </button>
             </div>
         </section>
 
@@ -239,7 +307,9 @@
                                             <div class="col-7">
                                                 <span class="badge bg-warning text-dark mb-2">1位</span>
                                                 <h5 class="fw-bold mb-2 card-title-nowrap">最強魔法使いの転生</h5>
-                                                <p class="text-muted small mb-2 text-clamp-2">史上最強の魔法使いが未来へ転生。失われた魔法文明を前に、新たな仲間と共に世界の謎と陰謀へ挑む、爽快で壮大な転生ファンタジーアクション。</p>
+                                                <p class="text-muted small mb-2 text-clamp-2">
+                                                    史上最強の魔法使いが未来へ転生。失われた魔法文明を前に、新たな仲間と共に世界の謎と陰謀へ挑む、爽快で壮大な転生ファンタジーアクション。
+                                                </p>
                                                 <div class="rating-stars small">
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>
@@ -268,7 +338,9 @@
                                             <div class="col-7">
                                                 <span class="badge bg-secondary mb-2">2位</span>
                                                 <h5 class="fw-bold mb-2 card-title-nowrap">竜騎士の伝説</h5>
-                                                <p class="text-muted small mb-2 text-clamp-2">竜と契約した若き騎士が、仲間と共に迫りくる脅威と古代の謎に立ち向かう。絆と勇気が導く、壮大な冒険と伝説が紡がれるファンタジー物語。</p>
+                                                <p class="text-muted small mb-2 text-clamp-2">
+                                                    竜と契約した若き騎士が、仲間と共に迫りくる脅威と古代の謎に立ち向かう。絆と勇気が導く、壮大な冒険と伝説が紡がれるファンタジー物語。
+                                                </p>
                                                 <div class="rating-stars small">
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>
@@ -297,7 +369,9 @@
                                             <div class="col-7">
                                                 <span class="badge bg-secondary mb-2">3位</span>
                                                 <h5 class="fw-bold mb-2 card-title-nowrap">魔法学園の日常</h5>
-                                                <p class="text-muted small mb-2 text-clamp-2">魔法学園に通う個性豊かな生徒たちが、授業や試験、友情や恋に揺れながら日々成長していく。笑いとときめきがあふれる、魔法世界の青春ファンタジー。</p>
+                                                <p class="text-muted small mb-2 text-clamp-2">
+                                                    魔法学園に通う個性豊かな生徒たちが、授業や試験、友情や恋に揺れながら日々成長していく。笑いとときめきがあふれる、魔法世界の青春ファンタジー。
+                                                </p>
                                                 <div class="rating-stars small">
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>
@@ -326,7 +400,9 @@
                                             <div class="col-7">
                                                 <span class="badge bg-secondary mb-2">4位</span>
                                                 <h5 class="fw-bold mb-2 card-title-nowrap">未来探偵ネオ</h5>
-                                                <p class="text-muted small mb-2 text-clamp-2">近未来都市を舞台に、若き探偵ネオが最新テクノロジーと鋭い推理力で複雑な事件に挑む。陰謀が渦巻く世界で真実を追い続ける、スタイリッシュなSFミステリーアクション。</p>
+                                                <p class="text-muted small mb-2 text-clamp-2">
+                                                    近未来都市を舞台に、若き探偵ネオが最新テクノロジーと鋭い推理力で複雑な事件に挑む。陰謀が渦巻く世界で真実を追い続ける、スタイリッシュなSFミステリーアクション。
+                                                </p>
                                                 <div class="rating-stars small">
                                                     <i class="bi bi-star-fill"></i>
                                                     <i class="bi bi-star-fill"></i>
@@ -373,7 +449,7 @@
                             <div class="card-body">
                                 <i class="bi bi-magic display-4 text-primary"></i>
                                 <h5 class="mt-3">ファンタジー</h5>
-                                <small class="text-muted">1,234作品</small>
+                                <small class="text-muted">1,234漫画</small>
                             </div>
                         </div>
                     </a>
@@ -384,7 +460,7 @@
                             <div class="card-body">
                                 <i class="bi bi-heart-fill display-4 text-danger"></i>
                                 <h5 class="mt-3">恋愛</h5>
-                                <small class="text-muted">890作品</small>
+                                <small class="text-muted">890漫画</small>
                             </div>
                         </div>
                     </a>
@@ -395,7 +471,7 @@
                             <div class="card-body">
                                 <i class="bi bi-lightning-fill display-4 text-warning"></i>
                                 <h5 class="mt-3">アクション</h5>
-                                <small class="text-muted">1,567作品</small>
+                                <small class="text-muted">1,567漫画</small>
                             </div>
                         </div>
                     </a>
@@ -406,7 +482,7 @@
                             <div class="card-body">
                                 <i class="bi bi-rocket-takeoff display-4 text-info"></i>
                                 <h5 class="mt-3">SF</h5>
-                                <small class="text-muted">678作品</small>
+                                <small class="text-muted">678漫画</small>
                             </div>
                         </div>
                     </a>
@@ -420,14 +496,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-film"></i> AniListo</h5>
-                    <p class="text-light">あなたの好きなアニメを見つけて、共有しよう。</p>
+                    <h5 class="fw-bold mb-3"><i class="bi bi-book"></i> AniListo</h5>
+                    <p class="text-light">あなたの好きな漫画を見つけて、共有しよう。</p>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="manga-about.html" class="text-light text-decoration-none">About</a></li>
+                        <li><a href="manga-terms-service.html" class="text-light text-decoration-none">利用規約</a></li>
                         <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
