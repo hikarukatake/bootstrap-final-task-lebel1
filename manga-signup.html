@@ -174,7 +174,7 @@
                     </div>
 
                     <!-- 登録ボタン -->
-                    <button type="submit" id="submitBtn" class="btn btn-signup w-100" disabled>
+                    <button type="submit" id="submitBtn" class="btn btn-signup w-100">
                         アカウントを作成
                     </button>
                 </form>
@@ -318,46 +318,36 @@
                     }
                 } else {
                     document.getElementById('birthdateError').classList.remove('d-none');
-                    valid = false;
+                    return;
                 }
 
                 // 利用規約
                 if (!agreeTerms.checked) {
                     document.getElementById('termsError').classList.remove('d-none');
-                    valid = false;
+                    return;
                 } else {
                     document.getElementById('termsError').classList.add('d-none');
                 }
 
-                // ボタン制御
-                submitBtn.disabled = !valid;
+                return valid;
             }
-
-            // 入力イベント監視
-            [username, email, password, confirmPassword, birthdate, agreeTerms].forEach(field => {
-                field.addEventListener('input', validate);
-                field.addEventListener('change', validate);
-            });
-
-            // 初期チェック
-            validate();
 
             // 送信時
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                if (!submitBtn.disabled) {
-                    // 成功通知
+                const isValid = validate();
+
+                if(!isValid){
+                    return;
+                }
                     const toast = new bootstrap.Toast(document.getElementById('successToast'));
                     document.getElementById('toastMessage').textContent = 'アカウントが作成されました！メールを確認してください。';
                     toast.show();
-                    form.reset();
-                    validate();
 
                     // 2秒後にログインページへリダイレクト
                     setTimeout(() => {
                         window.location.href = 'manga-login.html';
                     }, 2000);
-                }
             });
         });
     </script>
